@@ -1,17 +1,50 @@
 import styled from 'styled-components'
 import { Container, Row, Col } from "react-grid-system";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import swal from "sweetalert";
 
-const User = {
-    "username": "Long",
-    "password": "123456",
-    "fname": "Nguyen",
-    "lname": "Long",
-    "email": "Nothing@gmail.com",
-    "phone": "0984046827",
-    "url_avt": "https://pdp.edu.vn/wp-content/uploads/2021/05/hinh-anh-avatar-trang-dep-1.jpg",
-    "birthday": "2001-01-01",
-}
 export default function Password () {
+    const [userInfor, setUserInfor] = useState([])
+    const [pwCur, setPwCur] = useState("")
+    const [pwNew, setPwNew] = useState("")
+    const [pwConfirm, setPwConfirm] = useState("")
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const id = sessionStorage.getItem('user_id')
+            const res = await axios.get('http://localhost/ecommerce/backend/api/user/getUser.php?user_id=' + id);
+            setUserInfor(res.data.data[0])
+          }
+          fetchUser()
+    }, [])
+    const onChangePassword = () => {
+        console.log(pwCur);
+        console.log(pwNew);
+        console.log(pwConfirm);
+        if(!pwCur || !pwNew || !pwConfirm) {
+            swal("Please fill full input!!!", "Try again !", "warning");
+            return;
+        }
+        if (pwNew !== pwConfirm) {
+            swal("Confirm password incorrect!", "Try again !", "error");
+            return;
+        }
+        const data = {
+            username: userInfor.username,
+            password: pwCur,
+            new_password: pwNew
+        }
+        console.log("data->>>>>", data)
+       
+        axios.post("http://localhost/ecommerce/backend/api/user/update_pass.php", data)
+            .then((response) => {
+                console.log("test" ,response);
+                if(response.data.status === 'Success')  swal("Completely!", "Change password success", "success");
+                else swal("Password incorrect!", "Try again !", "error"); 
+            }) 
+
+    }
     return (
         <div>
             <Title>Change Password</Title>
@@ -20,29 +53,29 @@ export default function Password () {
                 <Row>
                     <ColStyled lg={4}>
                         <ContainerImg> 
-                            <ImgProduct src={User.url_avt} alt="UserImage"/>
+                            <ImgProduct src={userInfor.url_avt} alt="UserImage"/>
                         </ContainerImg>
                     </ColStyled>
                     <Col>
                         <ContainerInput>
                             <Row>
                                 <Col lg={3}><NameInput>Password</NameInput></Col>
-                                <Col lg={9}><Input type="text" placeholder="Your current password"/></Col>
+                                <Col lg={9}><Input required type="password" placeholder="Your current password" onChange={(e) => setPwCur(e.target.value)}/></Col>
                             </Row>
                         </ContainerInput>
                         <ContainerInput>
                             <Row>
                                 <Col lg={3}><NameInput>New PW</NameInput></Col>
-                                <Col lg={9}><Input type="text" placeholder="Your new password"/></Col>
+                                <Col lg={9}><Input required type="password" placeholder="Your new password" onChange={(e) => setPwNew(e.target.value)}/></Col>
                             </Row>
                         </ContainerInput>
                         <ContainerInput>
                             <Row>
                                 <Col lg={3}><NameInput>Confirm PW</NameInput></Col>
-                                <Col lg={9}><Input type="text" placeholder="Confirm yours new password"/></Col>
+                                <Col lg={9}><Input required type="password" placeholder="Confirm yours new password" onChange={(e) => setPwConfirm(e.target.value)}/></Col>
                             </Row>
                         </ContainerInput>
-                        <ButtonSave>Confirm</ButtonSave>
+                        <ButtonSave onClick={() => onChangePassword()}>Confirm</ButtonSave>
                     </Col>
                 </Row>
             </Container>

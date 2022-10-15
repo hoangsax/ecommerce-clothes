@@ -2,7 +2,6 @@ import { Rating } from '@mui/material';
 import React from 'react'
 import styled from 'styled-components'
 import Button from '../Button';
-import images from '../images';
 import { grey } from '@mui/material/colors';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 
@@ -10,29 +9,32 @@ const Product = (props) => {
   const addToWishlist = (e) => {
     alert('Đã thêm vào wish list của bạn')
   }
+  
   const product = props.product;
   return (
-    <Container display={props.display}>
-      {product.instock ?
+    <Container key={props.idx} display={props.display} onClick={()=>props.onClick(product.product_id)}>
+      {product.amount > 0 ?
         <Status display={props.display}>
-          <i class="fa fa-check-circle" aria-hidden="true"></i> in stock
-        </Status> : ''}
+          <i className="fa fa-check-circle" aria-hidden="true"></i> in stock
+        </Status> : <Status display={props.display} color="#cf2115">
+          <i className="fa fa-check-circle" aria-hidden="true"></i> out of stock
+        </Status>}
       <Box display={props.display}>
         <div>
           <Image display={props.display}>
-            <img src={images.lap1} style={{ maxWidth: '100%', maxHeight: '100%' }} alt="laptop" />
+            <img src={product.img_cover} style={{ maxWidth: '100%', maxHeight: '100%' }} alt="laptop" />
           </Image>
           <Rate display={props.display}>
             <Rating size='small' name="read-only" value={product.rating} readOnly/>
-            <p style={{fontSize: '13px', color: '#a6a6a6'}}>Reviews (4)</p>
+            <Text style={{fontSize: '13px', color: '#a6a6a6'}}>Reviews ({product.num_reviewer})</Text>
           </Rate>
         </div>
         <div className='detail'>
           <Name display={props.display}>{product.name}</Name>
-          {props.display === 1 && <Desc>{product.desc}</Desc>}
+          {props.display === 1 && <Desc>{product.description}</Desc>}
           <Box display={props.display}>
-            <p style={{color: 'gray', marginRight:'10px'}}><s>{'$' + product.oldPrice}</s></p>
-            <p style={{fontSize: '20px'}}><b>{'$' + product.newPrice}</b></p>
+            <Text style={{color: 'gray', marginRight:'10px'}}><s>{'$' + product.old_price}</s></Text>
+            <Text style={{fontSize: '20px'}}><b>{'$' + product.price}</b></Text>
           </Box>
           {props.display === 1 && 
             <ComboBtn>
@@ -46,14 +48,19 @@ const Product = (props) => {
   )
 }
 
+const Text = styled.span`
+  margin: 0;
+  padding: 0;
+`
+
 const ComboBtn = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `
-const Desc = styled.p`
-  width: 40%;
+const Desc = styled.span`
+  width: 100%;
   font-size: 13px;
   max-height: 100px;
   overflow: hidden;
@@ -65,13 +72,12 @@ const Box = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 10px;
   }
 `
 const Name = styled.div`
   font-size: 14px;
   font-weight: 400;
-  height: ${props=>props.display?'30px':'60px'};
+  height: ${props=>props.display?'30px':'40px'};
   overflow: hidden;
 `
 const Rate = styled.div`
@@ -84,7 +90,7 @@ const Rate = styled.div`
 
 const Status = styled.div`
   text-align: ${props => props.display === 0 ? 'left' : 'right'};
-  color: #78A962;
+  color: ${props => props.color ? props.color : '#78A962'};
   font-size: 13px;
 `
 const Image = styled.div`
@@ -101,10 +107,18 @@ const Container = styled.div`
   max-height: 300px;
   margin-bottom: 5px;
   box-shadow: ${props=>props.display===1?'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px':'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;'};
-  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
   :hover {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  @media (max-width: 1080px){
+    width: ${props => props.display === 0 ? '25%' : '100%'};
+  }
+  @media (max-width: 768px){
+    width: ${props => props.display === 0 ? '33%' : '100%'};
+  }
+  @media (max-width: 480px){
+    width: ${props => props.display === 0 ? '50%' : '100%'};
   }
 `
 export default Product

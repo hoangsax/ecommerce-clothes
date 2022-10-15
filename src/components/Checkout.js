@@ -6,18 +6,67 @@ import Scrollbars from "react-scrollbars-custom";
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { BsPhoneVibrate } from 'react-icons/bs';
 import { BsPersonCircle } from 'react-icons/bs';
-import {Link} from "react-router-dom";
-import { useLocation } from 'react-router-dom'
-import {useState} from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import swal from "sweetalert";
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
     const location = useLocation()
-    const { name, address, phone, lstCart } = location.state
-    console.log("asadaf", lstCart)
+    const { name, address, phone } = location.state
+
     const [cod, setCod] = useState("bank");
+    const [lstCart, setLstCart] = useState([]);
+
+    const navigate = useNavigate(); 
+    const onPay = () => {
+        swal("Completely!", "Payment success", "success");
+        const data = {
+            user_id: sessionStorage.getItem('user_id'), 
+            state: "Pending",
+            total_ship: 20.00,
+            date: new Date().toISOString().slice(0, 10),
+            username: name,
+            phone: phone,
+            address: address,
+            cart: lstCart
+        }
+        axios.post("http://localhost/ecommerce/backend/api/order/create.php", data)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        const data_delete = {
+            user_id: sessionStorage.getItem('user_id'),
+            };
+            let config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            };
+        axios.post("http://localhost/ecommerce/backend/api/cart/deleteAll.php", data_delete, config)
+            .then((response) => {
+                console.log(response.data);
+            }); 
+            navigate("../");
+    }
+    useEffect(() => {
+        axios.get(`http://localhost/ecommerce/backend/api/cart/finditems.php?user_id=${sessionStorage.getItem('user_id')}`).then((response) => {
+            if (response.data.data) setLstCart(response.data.data);
+            console.log(response.data.message);
+        });
+        // const data = sessionStorage.getItem('user_id');
+        // if(data) {
+        //   setUser(data)
+        // }
+      }, []);
     return (
         <div>
             <Header/>
+            <ContainerStyled>
             <TitleShipping>Shipping Address</TitleShipping>
                 <Container fluid>
                     <Row>
@@ -84,23 +133,26 @@ const Checkout = () => {
                                         <Input type="text" />
                                     </ContainerInput>}
                                     <Row>
-                                        <Col lg={8.5}>
+                                        <Col xs={8.5}>
                                             <Ship>Shipping</Ship>
                                         </Col>
-                                        <Col lg={2.5}>
-                                            <ValueShip>{(21000).toLocaleString()}</ValueShip>
+                                        <Col xs={2.5}>
+                                            <ValueShip>{(20).toLocaleString()}</ValueShip>
                                             {/* <ValueShip>{document.getElementById("name").value}</ValueShip> */}
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col md={7}>
-                                           <ButtonPay>Pay {(12000000).toLocaleString()}</ButtonPay> 
+                                           <ButtonPay onClick={() => onPay()}>
+                                               Pay $
+                                               {/* {lstCart.reduce((a, b) => {return a.amount *Number(a.price) + b.amount *Number(b.price)}, 0)} */}
+                                               {lstCart.reduce((sum, product) => {return sum + product.amount* product.price }, 0).toFixed(2)}
+                                            </ButtonPay> 
                                         </Col>
                                         <Col md= {5}>
-                                        <Link to="/cart" style={LinkStyle}>
-                                        <ButtonBack>Back</ButtonBack>
-                                        </Link>
-                                            
+                                            <Link to="/cart">
+                                                <ButtonBack>Back</ButtonBack>
+                                            </Link>
                                         </Col>
                                     </Row>
                                     
@@ -124,7 +176,7 @@ const Checkout = () => {
                                     <Row>
                                         <Col lg={3.5}>
                                             <ContainerImg> 
-                                                <ImgProduct src={product.img} alt="Nothing"/>
+                                                <ImgProduct src={product.img_cover} alt="Nothing"/>
                                             </ContainerImg>
                                         </Col>
                                         <Col lg={8.5}>
@@ -132,8 +184,8 @@ const Checkout = () => {
                                                 {product.name}
                                             </Describe>
                                             <Row>
-                                                <Col lg={4}><QuanPrice>Qty: {product.quantity}</QuanPrice></Col>
-                                                <Col lg={8}><QuanPrice>Price: {product.price.toLocaleString()}</QuanPrice></Col>
+                                                <Col sm={4}><QuanPrice>Qty: {product.amount}</QuanPrice></Col>
+                                                <Col sm={8}><QuanPrice>Price: ${product.price}</QuanPrice></Col>
                                             </Row>
                                         </Col>
                                     </Row>
@@ -144,6 +196,7 @@ const Checkout = () => {
                         </Col>
                     </Row>
                 </Container>
+            </ContainerStyled>
             <Footer/>
         </div>
     )
@@ -266,9 +319,6 @@ const ValueShip = styled.span`
     font-weight: 600;
 
 `
-const LinkStyle = {
-    textDecoration: "none",
-}
 const ContainerSummary = styled.div`
     background-color: #F5F7FF;
     padding-top: 20px;
@@ -280,7 +330,7 @@ const TitleSummary = styled.div`
     font-size: 1.2rem;
 `
 const Scrollbarstyled = {
-    height: "40vh",
+    height: "50vh",
 }
 const ImgProduct = styled.img`
     width: 100%;
@@ -289,9 +339,9 @@ const ImgProduct = styled.img`
     margin-bottom: 20px;
 `
 const ContainerImg = styled.div`
-    border: solid 1px;
-    height: 80px;
-    width: 80px;
+    /* border: solid 1px; */
+    height: 90px;
+    width: 90px;
     margin-bottom: 20px;
 `
 const Describe = styled.div`
@@ -314,5 +364,8 @@ const StyleRow = styled.div`
     padding-left: 10px;
     border-radius: 10px;
     transition: all .3s;
+`
+const ContainerStyled = styled.div`
+    margin-top: 30px;
 `
 export default Checkout;
