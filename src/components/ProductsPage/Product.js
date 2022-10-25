@@ -13,27 +13,27 @@ const Product = (props) => {
   const product = props.product;
   return (
     <Container key={props.idx} display={props.display} onClick={()=>props.onClick(product.product_id)}>
-      {product.amount > 0 ?
+      {/* {product.amount > 0 ?
         <Status display={props.display}>
           <i className="fa fa-check-circle" aria-hidden="true"></i> in stock
         </Status> : <Status display={props.display} color="#cf2115">
           <i className="fa fa-check-circle" aria-hidden="true"></i> out of stock
-        </Status>}
+        </Status>} */}
       <Box display={props.display}>
         <div>
           <Image display={props.display}>
-            <img src={product.img_cover} style={{ maxWidth: '100%', maxHeight: '100%' }} alt="laptop" />
+            <img src={product.img_cover} style={{ maxHeight: '100%' }} alt="laptop" />
           </Image>
-          <Rate display={props.display}>
+          {/* <Rate display={props.display}>
             <Rating size='small' name="read-only" value={product.rating} readOnly/>
             <Text style={{fontSize: '13px', color: '#a6a6a6'}}>Reviews ({product.num_reviewer})</Text>
-          </Rate>
+          </Rate> */}
         </div>
         <div className='detail'>
           <Name display={props.display}>{product.name}</Name>
           {props.display === 1 && <Desc>{product.description}</Desc>}
           <Box display={props.display}>
-            <Text style={{color: 'gray', marginRight:'10px'}}><s>{'$' + product.old_price}</s></Text>
+            {/* <Text style={{color: 'gray', marginRight:'10px'}}><s>{'$' + product.old_price}</s></Text> */}
             <Text style={{fontSize: '20px'}}><b>{'$' + product.price}</b></Text>
           </Box>
           {props.display === 1 && 
@@ -72,53 +72,56 @@ const Box = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 0 5px;
   }
 `
 const Name = styled.div`
   font-size: 14px;
   font-weight: 400;
-  height: ${props=>props.display?'30px':'40px'};
+  /* height: ${props=>props.display?'30px':'40px'}; */
   overflow: hidden;
 `
-const Rate = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: ${props=>props.display?'0 10px':''};
-`
+// const Rate = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: ${props=>props.display?'0 10px':''};
+// `
 
-const Status = styled.div`
-  text-align: ${props => props.display === 0 ? 'left' : 'right'};
-  color: ${props => props.color ? props.color : '#78A962'};
-  font-size: 13px;
-`
+// const Status = styled.div`
+//   text-align: ${props => props.display === 0 ? 'left' : 'right'};
+//   color: ${props => props.color ? props.color : '#78A962'};
+//   font-size: 13px;
+// `
 const Image = styled.div`
   width: ${props => props.display === 0 ? 'auto' : '200px'};
-  height: 150px;
+  height: 250px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 `
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  width: ${props => props.display === 0 ? '20%' : '100%'};
+  /* padding: 10px; */
+  width: ${props => props.display === 0 ? '24%' : '100%'};
   max-height: 300px;
   margin-bottom: 5px;
   box-shadow: ${props=>props.display===1?'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px':'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;'};
   :hover {
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 1px solid gray;
   }
   @media (max-width: 1080px){
-    width: ${props => props.display === 0 ? '25%' : '100%'};
+    width: ${props => props.display === 0 ? '32%' : '100%'};
   }
   @media (max-width: 768px){
-    width: ${props => props.display === 0 ? '33%' : '100%'};
+    width: ${props => props.display === 0 ? '49%' : '100%'};
   }
   @media (max-width: 480px){
-    width: ${props => props.display === 0 ? '50%' : '100%'};
+    width: ${props => props.display === 0 ? '100%' : '100%'};
   }
 `
 export default Product

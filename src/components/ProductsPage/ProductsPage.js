@@ -64,7 +64,43 @@ const ProductsPage = (props) => {
   const [display, setDisplay] = useState(0);
   const [brandsTaget, setBrandsTaget] = useState([]);
   const [currPage, setcurrPage] = useState(1);
-  const [products, setproducts] = useState([]);
+  const [products, setproducts] = useState([
+    {
+      id: 1,
+      name: "Rick & Morty T-shirt",
+      price: 20,
+      img_cover:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/a599d0abc933427cb24daede010a9047_9366/Ao_Thun_Ba_La_Essentials_Manchester_United_DJen_HB4373_21_model.jpg",
+    },
+    {
+      id: 2,
+      name: "Rick & Morty T-shirt",
+      price: 20,
+      img_cover:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/3369edd293164a678d6aae6100a9e092_9366/Ao_DJau_Thu_Ba_Manchester_United_22-23_mau_xanh_la_HE2981_21_model.jpg",
+    },
+    {
+      id: 3,
+      name: "Rick & Morty T-shirt",
+      price: 20,
+      img_cover:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/edc50f58129041be80b2ae29011a3119_9366/Ao_DJau_San_Nha_Manchester_United_22-23_DJo_H64049_01_laydown.jpg",
+    },
+    {
+      id: 4,
+      name: "Rick & Morty T-shirt",
+      price: 20,
+      img_cover:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2700b53701664eb8b277ae2f00df6e5d_9366/Ao_DJau_San_Khach_Manchester_United_22-23_trang_H13880_21_model.jpg",
+    },
+    {
+      id: 5,
+      name: "Rick & Morty T-shirt",
+      price: 20,
+      img_cover:
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/a599d0abc933427cb24daede010a9047_9366/Ao_Thun_Ba_La_Essentials_Manchester_United_DJen_HB4373_21_model.jpg",
+    },
+  ]);
   const [countPage, setcountPage] = useState(0);
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [isFirst, setIsFirst] = useState(true);
@@ -198,7 +234,7 @@ const ProductsPage = (props) => {
       const indexLast = currPage * num;
       const indexFirst = indexLast - num;
       const pds = filteredProducts.slice(indexFirst, indexLast);
-      setproducts(pds);
+      // setproducts(pds);
     };
     fetchProducts();
     setIsFirst(false);
@@ -217,22 +253,25 @@ const ProductsPage = (props) => {
       <Container>
         <Carousel>
           <Carousel.Item style={{ width: "100%", height: "100%" }}>
-            <Poster src={images.poster} alt="poster" />
-          </Carousel.Item>
-          <Carousel.Item style={{ width: "100%", height: "100%" }}>
             <Poster
-              src="https://www.ungeek.ph/wp-content/uploads/2019/10/asus_zenbook_duo_line_pre_order_ph.jpg"
+              src="https://www.uniformhouse.com/images/Custom/banner1.jpg"
               alt="poster"
             />
           </Carousel.Item>
           <Carousel.Item style={{ width: "100%", height: "100%" }}>
             <Poster
-              src="https://www.phucanh.vn/media/news/0609_KMLaptopGamingAsusBTSt9-2021.png"
+              src="http://www.e-khadigarments.com/images/banner6.png"
+              alt="poster"
+            />
+          </Carousel.Item>
+          <Carousel.Item style={{ width: "100%", height: "100%" }}>
+            <Poster
+              src="https://az777500.vo.msecnd.net/images/2134/banner-store-quality-products-uniforms.jpg"
               alt="poster"
             />
           </Carousel.Item>
         </Carousel>
-        <Brands>
+        {/* <Brands>
           {brands.map((brand, idx) => {
             return (
               <Brand
@@ -243,7 +282,7 @@ const ProductsPage = (props) => {
               />
             );
           })}
-        </Brands>
+        </Brands> */}
         <Content>
           <BoxFilter show={show}>
             <Filter
@@ -335,6 +374,7 @@ const ProductsPage = (props) => {
 const Pd = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 1%;
 `;
 const BoxFilter = styled.div`
   width: 20%;
@@ -388,6 +428,7 @@ const Row = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 `;
 const Products = styled.div`
   width: 80%;
@@ -400,41 +441,41 @@ const Products = styled.div`
   }
 `;
 
-const Brand = styled.img`
-  background-color: white;
-  width: 120px;
-  height: 60px;
-  padding: 0px 10px;
-  margin: 10px 5px 0px 5px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  :hover {
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-  @media (max-width: 1024px) {
-    width: 100px;
-    padding: 0px 5px;
-  }
-  @media (max-width: 768px) {
-    width: 95px;
-  }
-`;
+// const Brand = styled.img`
+//   background-color: white;
+//   width: 120px;
+//   height: 60px;
+//   padding: 0px 10px;
+//   margin: 10px 5px 0px 5px;
+//   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+//     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+//   :hover {
+//     cursor: pointer;
+//     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+//   }
+//   @media (max-width: 1024px) {
+//     width: 100px;
+//     padding: 0px 5px;
+//   }
+//   @media (max-width: 768px) {
+//     width: 95px;
+//   }
+// `;
 
-const Brands = styled.div`
-  margin: 10px 0;
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  border: 1px solid #e5e5e5;
-  border-width: 2px 0 2px 0;
-  display: flex;
-  /* justify-content: space-between; */
-  flex-wrap: wrap;
-`;
+// const Brands = styled.div`
+//   margin: 10px 0;
+//   padding-bottom: 10px;
+//   display: flex;
+//   flex-direction: row;
+//   border: 1px solid #e5e5e5;
+//   border-width: 2px 0 2px 0;
+//   display: flex;
+//   /* justify-content: space-between; */
+//   flex-wrap: wrap;
+// `;
 
 const Poster = styled.img`
-  height: 300px;
+  height: 350px;
   @media (max-width: 1024px) {
     height: 200px;
   }
