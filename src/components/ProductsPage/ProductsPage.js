@@ -379,7 +379,7 @@ const Pd = styled.div`
 `;
 const BoxFilter = styled.div`
   width: 20%;
-  margin-top: 57px;
+  margin-top: 56px;
   @media (max-width: 768px) {
     left: ${(props) => (props.show ? "0" : "-100%")};
     top: 0;
