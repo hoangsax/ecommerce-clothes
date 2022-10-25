@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getNumCart, numCartSelector } from "../store/reducers/numCartSlice";
+import images from "./images";
 
 const Header = (props) => {
   const numCart = useSelector(numCartSelector);
@@ -53,7 +54,7 @@ const Header = (props) => {
             className="d-flex flex-row align-items-center"
           >
             <img
-              src="https://www.hcmut.edu.vn/images/hcmut/logoBK.png"
+              src={images.hcmut}
               alt="Logo HCMUT"
               width="55"
               height="55"
