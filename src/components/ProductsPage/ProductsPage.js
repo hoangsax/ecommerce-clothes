@@ -122,14 +122,14 @@ const ProductsPage = (props) => {
     const indexFirst = indexLast - num;
     setproducts(products.slice(indexFirst, indexLast));
   };
-  const filterBrand = (brand) => {
-    setcurrPage(1);
-    setBrandsTaget([brand.name]);
-    const productFiltered = data.filter((p) => p.brand === brand.name);
-    getProductPerPage(productFiltered);
-    setfilteredProducts(productFiltered);
-    setcountPage(Math.ceil(productFiltered.length / num));
-  };
+  // const filterBrand = (brand) => {
+  //   setcurrPage(1);
+  //   setBrandsTaget([brand.name]);
+  //   const productFiltered = data.filter((p) => p.brand === brand.name);
+  //   getProductPerPage(productFiltered);
+  //   setfilteredProducts(productFiltered);
+  //   setcountPage(Math.ceil(productFiltered.length / num));
+  // };
   const applyFilter = () => {
     if (
       brandsTaget.length === 0 &&
@@ -311,6 +311,7 @@ const ProductsPage = (props) => {
                       id="show"
                       value={num}
                       label="Show"
+                      style={{borderRadius: '0'}}
                       onChange={changeNumPerPage}
                     >
                       <MenuItem value={10}>10 per page</MenuItem>
@@ -378,6 +379,7 @@ const Pd = styled.div`
 `;
 const BoxFilter = styled.div`
   width: 20%;
+  margin-top: 57px;
   @media (max-width: 768px) {
     left: ${(props) => (props.show ? "0" : "-100%")};
     top: 0;

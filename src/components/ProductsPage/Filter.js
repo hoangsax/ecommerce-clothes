@@ -52,11 +52,11 @@ const Filter = (props) => {
   return (
     <Container>
       <Row>
-        <Title>Filters</Title>
+        <Title><i class="fa fa-sliders" aria-hidden="true"></i> Filters</Title>
         {props.show === 1 && <CloseIcon onClick={()=>props.setShow(0)}/>}
       </Row>
       <Button type='transparent' text="Clear Filter" onClick={() => props.clearFilter()}/>
-      <TypeFilter>Brands</TypeFilter>
+      <TypeFilter><i class="fa fa-align-left" aria-hidden="true"></i> Brands</TypeFilter>
       <Brands>
         {props.brands.map((brand, idx) => {
           return (
@@ -64,7 +64,7 @@ const Filter = (props) => {
           )
         })}
       </Brands>
-      <TypeFilter>RAM</TypeFilter>
+      <TypeFilter><i class="fa fa-align-left" aria-hidden="true"></i> RAM</TypeFilter>
       <Ram>
         <input type="checkbox" name="4gbram" id="4gbram" value='4GB' checked={props.ramFilter.includes('4GB')} onChange={() => targetRam('4GB')}/>
         <label><span>4GB</span><span></span></label>
@@ -77,7 +77,7 @@ const Filter = (props) => {
         <input type="checkbox" name="16gbram" id="16gbram" value='16GB' checked={props.ramFilter.includes('16GB')} onChange={() => targetRam('16GB')}/>
         <label><span>16GB</span><span></span></label>
       </Ram>
-      <TypeFilter>Price</TypeFilter>
+      <TypeFilter><i class="fa fa-align-left" aria-hidden="true"></i> Price</TypeFilter>
       <Slider
         style={{width: '90%', margin: '0 5%'}}
         getAriaLabel={() => 'Minimum distance'}
@@ -158,11 +158,13 @@ const TypeFilter = styled.p`
   margin: 10px 0;
   border-top: 1px solid #E5E5E5;
   padding-top: 10px;
+  text-transform: uppercase;
 `
 
 const Title = styled.p`
   font-weight: bold;
   text-align: center;
+  text-transform: uppercase;
   margin-bottom: 10px;
 `
 const Container = styled.div`
@@ -170,7 +172,9 @@ const Container = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
-  background-color: #F5F7FF;
+  /* background-color: #F5F7FF; */
+  background-color: white;
+  border: 1px solid #e1e1e1;
   height: fit-content;
   @media (max-width: 768px){
     background-color: white;

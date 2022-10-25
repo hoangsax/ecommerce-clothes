@@ -10,11 +10,13 @@ const Button = (props) => {
 const Btn = styled.button`
   width: 100%;
   padding: 5px;
-  background: #0156FF;
-  border-radius: 999px;
+  /* background: #0156FF; */
+  background-color: #282828;
   color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: 100;
   cursor: pointer;
-  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
   line-height: 24px;
   opacity: 1;
@@ -30,16 +32,18 @@ const Btn = styled.button`
   }
   &.primary{
     background: transparent;
-    border: 3px solid #0156FF;
+    border: 1px solid #BDBDBD;
     color: #0156FF;
+    text-transform: uppercase;
   }
   &.transparent {
     background: transparent;
-    border: 3px solid gray;
+    border: 1px solid #BDBDBD;
     color: gray;
+    text-transform: uppercase;
   }
   :hover {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   }
 `
 export default Button

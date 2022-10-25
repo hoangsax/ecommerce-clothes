@@ -65,9 +65,6 @@ const Header = (props) => {
 
           <Navbar.Collapse id="responsive-navbar-nav">
             <SearchBar className="searchbar">
-              <SearchButton>
-                <i className="fa fa-search"></i>
-              </SearchButton>
               <SearchInput
                 type="text"
                 name="search_product"
@@ -77,6 +74,9 @@ const Header = (props) => {
                 placeholder="Search by name..."
                 onKeyUp={(e) => searchProduct(e)}
               />
+              <SearchButton>
+                <i className="fa fa-search"></i>
+              </SearchButton>
             </SearchBar>
 
             <Nav className="me-auto"></Nav>
@@ -85,6 +85,7 @@ const Header = (props) => {
               {/* <Nav.Link eventKey={2} href="#memes">
                             Dank memes
                         </Nav.Link> */}
+              <Nav.Link onClick={() => navigate("/products")}>PRODUCTS</Nav.Link>
               <Nav.Link onClick={() => navigate("/about")}>ABOUT</Nav.Link>
               <Nav.Link as={Link} to="/news">
                 NEWS
@@ -170,11 +171,12 @@ const SearchBar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   background-color: white;
   border: none;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   margin-right: 2vw;
-  padding: 2px 10px 2px 2px;
+  padding: 2px;
   max-width: 250px;
   /* @media (max-width: 768px){
     display: none;
@@ -184,14 +186,14 @@ const SearchInput = styled.input`
   display: inline;
   border: none;
   outline: none;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   width: 80%;
 `;
 const SearchButton = styled.button`
   display: inline;
   border: none;
-  background-color: gray;
-  border-radius: 50%;
+  background-color: white;
+  /* border-radius: 50%; */
   width: 24px;
   /* padding: 5px; */
   i {
