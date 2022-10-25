@@ -389,6 +389,7 @@ const BoxFilter = styled.div`
     position: fixed;
     transition: all 0.5s ease;
     z-index: 999;
+    margin-top: 0;
     box-shadow: ${(props) =>
       props.show ? "rgba(0, 0, 0, 0.4) 0px 30px 90px" : ""};
   }
