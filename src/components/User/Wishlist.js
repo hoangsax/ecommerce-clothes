@@ -1,5 +1,5 @@
 import React from 'react'
-import Product from '../Home/Product'
+import Product from '../ProductsPage/Product'
 
 const Wishlist = (props) => {
   return (

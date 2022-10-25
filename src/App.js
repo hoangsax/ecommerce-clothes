@@ -21,6 +21,7 @@ import About from "./components/About";
 import News from "./components/News";
 import { Provider } from "react-redux";
 import store from "./store";
+import ProductsPage from "./components/ProductsPage/ProductsPage";
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -46,6 +47,7 @@ function App() {
             <Route path="" element={<HomeAdmin />} />
           </Route>
           <Route path="/" element={<Home user={user} />} />
+          <Route path="/products" element={<ProductsPage user={user} />} />
           <Route path="login" element={<Login user={user} />} />
           <Route path="cart" element={<Cart user={user} />} />
           <Route path="checkout" element={<Checkout user={user} />} />
