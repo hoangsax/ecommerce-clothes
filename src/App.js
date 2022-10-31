@@ -22,6 +22,7 @@ import News from "./components/News";
 import { Provider } from "react-redux";
 import store from "./store";
 import ProductsPage from "./components/ProductsPage/ProductsPage";
+import StoresPage from "./components/StoresPage/StoresPage";
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -54,6 +55,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="news" element={<News />} />
           <Route path="user" element={<User />} />
+          <Route path="stores" element={<StoresPage />} />
           <Route path="detail/:product_id" element={<Detail user={user} />} />
         </Routes>
       </BrowserRouter>

@@ -85,7 +85,10 @@ const Header = (props) => {
               {/* <Nav.Link eventKey={2} href="#memes">
                             Dank memes
                         </Nav.Link> */}
-              <Nav.Link onClick={() => navigate("/products")}>PRODUCTS</Nav.Link>
+              <Nav.Link onClick={() => navigate("/stores")}>STORES</Nav.Link>
+              <Nav.Link onClick={() => navigate("/products")}>
+                PRODUCTS
+              </Nav.Link>
               <Nav.Link onClick={() => navigate("/about")}>ABOUT</Nav.Link>
               <Nav.Link as={Link} to="/news">
                 NEWS
