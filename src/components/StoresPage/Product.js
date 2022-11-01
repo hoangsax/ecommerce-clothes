@@ -4,8 +4,10 @@ import styled from "styled-components";
 import Button from "../Button";
 import { grey } from "@mui/material/colors";
 import FavoriteTwoToneIcon from "@mui/icons-material/FavoriteTwoTone";
+import { useNavigate } from "react-router-dom";
 
 const Product = (props) => {
+  let navigate = useNavigate();
   const addToWishlist = (e) => {
     alert("Đã thêm vào wish list của bạn");
   };
@@ -15,7 +17,8 @@ const Product = (props) => {
     <Container
       key={props.idx}
       display={props.display}
-      // onClick={() => props.onClick(product.product_id)}
+      onClick={() => navigate('/stores/' + props.idx, { product })}
+    // onClick={() => props.onClick(product.product_id)}
     >
       {/* {product.amount > 0 ?
         <Status display={props.display}>

@@ -177,8 +177,8 @@ const StoresPage = (props) => {
               p.ram.substring(0, 4).includes("4GB")
                 ? "4GB"
                 : p.ram.substring(0, 4).includes("8GB")
-                ? "8GB"
-                : "16GB"
+                  ? "8GB"
+                  : "16GB"
             ) > -1
           );
         } else if (!fBrand && !fRam) {
@@ -193,8 +193,8 @@ const StoresPage = (props) => {
               p.ram.substring(0, 4).includes("4GB")
                 ? "4GB"
                 : p.ram.substring(0, 4).includes("8GB")
-                ? "8GB"
-                : "16GB"
+                  ? "8GB"
+                  : "16GB"
             ) > -1
           );
         } else if (!fRam) {
@@ -210,8 +210,8 @@ const StoresPage = (props) => {
               p.ram.substring(0, 4).includes("4GB")
                 ? "4GB"
                 : p.ram.substring(0, 4).includes("8GB")
-                ? "8GB"
-                : "16GB"
+                  ? "8GB"
+                  : "16GB"
             ) > -1
           );
         } else {
@@ -221,8 +221,8 @@ const StoresPage = (props) => {
               p.ram.substring(0, 4).includes("4GB")
                 ? "4GB"
                 : p.ram.substring(0, 4).includes("8GB")
-                ? "8GB"
-                : "16GB"
+                  ? "8GB"
+                  : "16GB"
             ) > -1 &&
             p.price >= value[0] &&
             p.price <= value[1]

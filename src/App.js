@@ -23,6 +23,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import ProductsPage from "./components/ProductsPage/ProductsPage";
 import StoresPage from "./components/StoresPage/StoresPage";
+import StoresDetails from "./components/StoresDetails/StoresDetails";
+import UploadDesign from "./components/UploadDesign/UploadDesign";
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -56,6 +58,8 @@ function App() {
           <Route path="news" element={<News />} />
           <Route path="user" element={<User />} />
           <Route path="stores" element={<StoresPage />} />
+          <Route path="stores/:id" element={<StoresDetails />} />
+          <Route path="stores/:id/design" element={<UploadDesign />} />
           <Route path="detail/:product_id" element={<Detail user={user} />} />
         </Routes>
       </BrowserRouter>
